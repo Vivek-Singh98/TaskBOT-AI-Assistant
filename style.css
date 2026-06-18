@@ -1,0 +1,308 @@
+/* ============================================
+   TaskBOT — Dark Productivity UI
+   style.css
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Root Variables ── */
+:root {
+  --bg-primary:    #0f1117;
+  --bg-secondary:  #1a1d27;
+  --bg-card:       #20232e;
+  --bg-input:      #16192
+  --accent:        #7c6af7;
+  --accent-hover:  #9d8fff;
+  --accent-glow:   rgba(124, 106, 247, 0.18);
+  --success:       #22c55e;
+  --warning:       #f59e0b;
+  --danger:        #ef4444;
+  --text-primary:  #f0f0f5;
+  --text-secondary:#9ca3af;
+  --text-muted:    #6b7280;
+  --border:        #2d3148;
+  --border-accent: #7c6af7;
+  --radius-sm:     8px;
+  --radius-md:     12px;
+  --radius-lg:     18px;
+  --font-main:     'Inter', sans-serif;
+  --font-mono:     'JetBrains Mono', monospace;
+  --shadow:        0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow:   0 0 24px rgba(124,106,247,0.25);
+}
+
+/* ── Global Reset ── */
+html, body, [class*="css"] {
+  font-family: var(--font-main) !important;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ── Hide Streamlit Defaults ── */
+#MainMenu, footer, header { visibility: hidden; }
+.stDeployButton { display: none; }
+
+/* ── Main Container ── */
+.main .block-container {
+  max-width: 860px !important;
+  padding: 2rem 2rem 6rem !important;
+  margin: 0 auto;
+}
+
+/* ── App Header / Title ── */
+.taskbot-header {
+  text-align: center;
+  padding: 2.4rem 0 1.6rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.taskbot-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  margin: 0 0 0.3rem;
+}
+
+.taskbot-header h1 span {
+  color: var(--accent);
+}
+
+.taskbot-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ── Subheader override ── */
+h3, .stSubheader {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  letter-spacing: -0.3px;
+}
+
+/* ── Chat Messages ── */
+.stChatMessage {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 1rem 1.2rem !important;
+  margin-bottom: 0.75rem !important;
+  box-shadow: var(--shadow) !important;
+  animation: fadeSlideIn 0.25s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* User message accent */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+  border-left: 3px solid var(--accent) !important;
+  background: linear-gradient(135deg, #1e2035 0%, var(--bg-card) 100%) !important;
+}
+
+/* AI message accent */
+[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-ai"]) {
+  border-left: 3px solid var(--success) !important;
+}
+
+/* ── Chat Avatar ── */
+.stChatMessage [data-testid="chatAvatarIcon-user"] {
+  background: var(--accent) !important;
+}
+.stChatMessage [data-testid="chatAvatarIcon-ai"] {
+  background: #1a3a2a !important;
+}
+
+/* ── Chat Input ── */
+.stChatInputContainer {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary) !important;
+  border-top: 1px solid var(--border) !important;
+  padding: 1rem 2rem !important;
+  z-index: 999;
+  backdrop-filter: blur(10px);
+}
+
+.stChatInputContainer textarea {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-main) !important;
+  font-size: 0.95rem !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stChatInputContainer textarea:focus {
+  border-color: var(--border-accent) !important;
+  box-shadow: var(--shadow-glow) !important;
+  outline: none !important;
+}
+
+.stChatInputContainer textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* ── Send Button ── */
+.stChatInputContainer button {
+  background: var(--accent) !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  color: white !important;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.stChatInputContainer button:hover {
+  background: var(--accent-hover) !important;
+  transform: scale(1.05);
+}
+
+/* ── Markdown Tables (task list output) ── */
+.stChatMessage table {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border-radius: var(--radius-sm) !important;
+  overflow: hidden !important;
+  font-size: 0.87rem !important;
+  font-family: var(--font-mono) !important;
+  margin-top: 0.8rem !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.stChatMessage thead tr {
+  background: linear-gradient(90deg, #2a2060 0%, #1e2035 100%) !important;
+}
+
+.stChatMessage thead th {
+  color: var(--accent-hover) !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.6px !important;
+  text-transform: uppercase !important;
+  padding: 0.7rem 1rem !important;
+  border-bottom: 1px solid var(--border-accent) !important;
+  text-align: left !important;
+}
+
+.stChatMessage tbody tr {
+  background: var(--bg-secondary) !important;
+  transition: background 0.15s;
+}
+
+.stChatMessage tbody tr:hover {
+  background: #222540 !important;
+}
+
+.stChatMessage tbody tr:nth-child(even) {
+  background: var(--bg-card) !important;
+}
+
+.stChatMessage tbody td {
+  padding: 0.65rem 1rem !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--text-primary) !important;
+  vertical-align: middle !important;
+}
+
+/* Status badge colors in table */
+.stChatMessage tbody td:nth-child(4) {
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+}
+
+/* ── Inline Code ── */
+.stChatMessage code {
+  background: #1e2035 !important;
+  color: var(--accent-hover) !important;
+  border-radius: 4px !important;
+  padding: 0.1rem 0.4rem !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.85em !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* ── Code Blocks ── */
+.stChatMessage pre {
+  background: #0d0f1a !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 1rem !important;
+  overflow-x: auto !important;
+}
+
+.stChatMessage pre code {
+  background: transparent !important;
+  border: none !important;
+  color: #a8b4ff !important;
+  font-size: 0.85rem !important;
+}
+
+/* ── Spinner ── */
+.stSpinner > div {
+  border-top-color: var(--accent) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ── Status Pills (for AI text responses) ── */
+.status-pending    { color: var(--warning); }
+.status-progress   { color: var(--accent);  }
+.status-completed  { color: var(--success); }
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+
+.empty-state .icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.empty-state p {
+  font-size: 0.95rem;
+  max-width: 320px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── Suggestion Chips ── */
+.suggestion-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.chip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
